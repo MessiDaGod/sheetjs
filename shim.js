@@ -1,9 +1,14 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-inner-declarations */
+/* eslint-disable no-useless-catch */
+/* eslint-disable no-undef */
 /*! shim.js (C) 2013-present SheetJS -- http://sheetjs.com */
 /* ES3/5 Compatibility shims and other utilities for older browsers. */
 
 // From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
 if(!Object.keys) Object.keys = (function() {
   var hasOwnProperty = Object.prototype.hasOwnProperty,
+      // eslint-disable-next-line no-prototype-builtins
       hasDontEnumBug = !({toString: null}).propertyIsEnumerable('toString'),
       dontEnums = [
         'toString',
@@ -88,7 +93,7 @@ if(typeof ArrayBuffer !== 'undefined' && !ArrayBuffer.prototype.slice) ArrayBuff
   if(start > end) return new Uint8Array(0);
   var out = new ArrayBuffer(end - start);
   var view = new Uint8Array(out);
-  var data = new Uint8Array(this, start, end - start)
+  var data = new Uint8Array(this, start, end - start);
   /* IE10 should have Uint8Array#set */
   if(view.set) view.set(data); else while(start <= --end) view[end - start] = data[end];
   return out;
@@ -150,5 +155,5 @@ var IE_LoadFile = (function() { try {
 
 // getComputedStyle polyfill from https://gist.github.com/8HNHoFtE/5891086
 if(typeof window !== 'undefined' && typeof window.getComputedStyle !== 'function') {
-  window.getComputedStyle = function(e,t){return this.el=e,this.getPropertyValue=function(t){var n=/(\-([a-z]){1})/g;return t=="float"&&(t="styleFloat"),n.test(t)&&(t=t.replace(n,function(){return arguments[2].toUpperCase()})),e.currentStyle[t]?e.currentStyle[t]:null},this}
+  window.getComputedStyle = function(e,t){return this.el=e,this.getPropertyValue=function(t){var n=/(\-([a-z]){1})/g;return t=="float"&&(t="styleFloat"),n.test(t)&&(t=t.replace(n,function(){return arguments[2].toUpperCase();})),e.currentStyle[t]?e.currentStyle[t]:null;},this;};
 }
